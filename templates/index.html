@@ -1,0 +1,63 @@
+{% extends "base_template.html" %}
+{% block content %}
+<h1>NextUI Web Server Example</h1>
+<p>Starter template for building an interactive web server.</p>
+<div class="alert alert-danger alert-dismissible collapse" role="alert" id="failed">
+    <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
+    <strong>Failed!</strong> The request to the server failed. Try again.
+</div>
+<div class="alert alert-success alert-dismissible collapse" role="alert" id="completed">
+    <a href="#" class="close" data-hide="alert" aria-label="close">&times;</a>
+    <strong>Sucess</strong> The request to the server completed successfully.
+</div>
+
+<div class="card">
+    <div id="topology-container" class="card-body"></div>
+</div>
+
+<div>
+    <form id="collectform">
+        <div><input type="hidden" name="action" value="add-node"></div>
+        <!--        <div><input type="hidden" name="action" value="update-epnm"></div>-->
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="generic input field">Node Name</label>
+                <input name="node-name" type="text" class="form-control" id="url-input-field"
+                       aria-describedby="emailHelp"
+                       value="{{initial_node_name}}">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <div>
+                    <button type="submit" class="btn btn-success" id="ajax-btn">
+                        Add Node
+                    </button>
+                </div>
+            </div>
+            <div class="form-group col-md-2">
+                <div>
+                    <button type="button" class="btn btn-success" id="ws-btn">
+                        Get Topology
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<h3>Collection Progress</h3>
+<div class="card">
+    <div class="card-body" id="textfield" style="min-height: 200px;max-height: 200px;overflow-y: scroll;">
+        <pre class="card-text" id="updatefield"></pre>
+    </div>
+</div>
+
+<script src="static/js/client.js" type="text/javascript"></script>
+<script type="text/javascript">
+    client.connect({{port}});
+</script>
+
+{% end %}
+
+
