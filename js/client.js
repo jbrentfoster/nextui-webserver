@@ -71,9 +71,6 @@ function init_nextui(){
 	// bind the topology object to the app
 	topology.attach(app);
 
-//	// app must run inside a specific container. In our case this is the one with id="topology-container"
-//	app.container(document.getElementById("topology-container"));
-
 	return topology;
 };
 
@@ -95,8 +92,7 @@ function call_rest(form, btn) {
         $("#updatefield").append("Server replied with status: " + response.status + "<br>");
         $("#updatefield").append("Response body: " + "<br>");
         $("#updatefield").append(response.body + "<br>");
-        var textfield = document.getElementById('textfield');
-        textfield.scrollTop = textfield.scrollHeight;
+        $('#textfield').scrollTop = $('#textfield').scrollHeight;
         console.log(response);
         btn.empty();
         btn.text(btn_text);
@@ -112,16 +108,14 @@ function process_ws_message(message) {
     if (message_json['method'] == 'get_topology_data') {
     //    $("#updatefield").append($().cleanJSON(message_json['response']) + "<br>");
         $("#updatefield").append("Received topology data from the server, updating map..." + "<br>");
-        var textfield = document.getElementById('textfield');
-        textfield.scrollTop = textfield.scrollHeight;
+        $('#textfield').scrollTop = $('#textfield').scrollHeight;
 
     //    Update model topology data
         var topo_data_json = JSON.parse($().cleanJSON(message_json['response']));
         topo.data(topo_data_json);
     }  else if (message_json['method'] == 'update_topology_data') {
         $("#updatefield").append($().cleanJSON(message_json['response']) + "<br>");
-//        var textfield = document.getElementById('textfield');
-        document.getElementById('textfield').scrollTop = document.getElementById('textfield').scrollHeight;
+        $('#textfield').scrollTop = $('#textfield').scrollHeight;
     }
 
 //  Update node names (to test post-processing server response)

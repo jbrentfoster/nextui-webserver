@@ -12,7 +12,6 @@ async def send_async_request(url, user, password):
             response_json_list.append(response_json)
             response = json.dumps(response_json_list, indent=2, sort_keys=True)
         with open("jsongets/response.json", 'w', encoding="utf8") as f:
-            # json.dump(response, f, sort_keys=True, indent=4, separators=(',', ': '))
             f.write(response)
             f.close()
         result = {'action': 'collect', 'status': 'completed', 'body': response}
@@ -35,11 +34,13 @@ def process_ws_message(message):
     response = ",".join(str(i['name']) for i in message)
     return response
 
+
 def add_node(message):
     node_count = len(json.loads(get_topology_data("foo"))['nodes'])
     node_dict = {'name': message + "_processed_by_server", 'id': node_count}
     result = {'action': 'add-node', 'status': 'completed', 'body': json.dumps(node_dict)}
     return result
+
 
 def get_topology_data(message):
     with open("jsonfiles/topo_data.json", 'r', ) as f:
@@ -47,9 +48,10 @@ def get_topology_data(message):
         f.close()
     return json.dumps(topo_data)
 
+
 def update_topology_data(message):
     with open("jsonfiles/topo_data.json", 'w', encoding="utf8") as f:
         # json.dump(response, f, sort_keys=True, indent=4, separators=(',', ': '))
-        f.write(json.dumps(message,sort_keys=False, indent=4))
+        f.write(json.dumps(message, sort_keys=False, indent=4))
         f.close()
     return "Server updated topology data."
